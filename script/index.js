@@ -21,8 +21,19 @@ const loadlevelWords = (id) => {
 const displayWords = (words) => {
     const wordContainer = document.getElementById("word-container");
     wordContainer.innerHTML = "";
+
+    if (words.length == 0) {
+        wordContainer.innerHTML = `
+        <div class="text-center col-span-full rounded-xl p-10 space-y-4">
+                <img src="assets/alert-error.png" alt="alert error" class="mx-auto">
+                <p class="text-gray-400 font-semibold text-xl">আপনি এখনো কোন Lesson Select করেন ন</p>
+                <h2 class="font-bold text-5xl ">একটি Lesson Select করুন।</h2>
+            </div>
+        `
+        return;
+    }
     words.forEach((word) => {
-        
+
         const wordDiv = document.createElement("div");
         wordDiv.innerHTML = `
         <div class="bg-white p-10 text-center rounded-xl space-y-2">
