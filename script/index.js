@@ -37,9 +37,9 @@ const displayWords = (words) => {
         const wordDiv = document.createElement("div");
         wordDiv.innerHTML = `
         <div class="bg-white p-10 text-center rounded-xl space-y-2">
-                <h2 class="font-bold text-2xl">${word.word}</h2>
+                <h2 class="font-bold text-2xl">${word.word ? word.word : "শব্দ পাওয়া যায়নি"}</h2>
                 <p class="font-medium text-lg">Meaning / Pronounciation</p>
-                <div class="bangla-font font-semibold text-2xl">${word.meaning} / ${word.pronounciation}</div>
+                <div class="bangla-font font-semibold text-2xl">${word.meaning ? word.meaning : "অর্থ পাওয়া যায়নি"} / ${word.pronounciation ? word.pronounciation : "উচ্চারণ পাওয়া যায়নি"}</div>
                 <div class="flex justify-between items-center">
                     <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
                     <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-volume"></i></button>
