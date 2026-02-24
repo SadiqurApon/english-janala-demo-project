@@ -3,16 +3,52 @@ const loadlessons = () => {
         .then((res) => res.json())
         .then(json => displayLessons(json.data))
 };
+
+const loadlevelWords = (id) => {
+    const url = `https://openapi.programming-hero.com/api/level/${id}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayWords(data.data));
+};
+
+
+// id:5
+// level:1
+// meaning:"আগ্রহী"
+// pronunciation:"ইগার"
+// word:"Eager"
+
+const displayWords = (words) => {
+    const wordContainer = document.getElementById("word-container");
+    wordContainer.innerHTML = "";
+    words.forEach((word) => {
+        
+        const wordDiv = document.createElement("div");
+        wordDiv.innerHTML = `
+        <div class="bg-white p-10 text-center rounded-xl space-y-2">
+                <h2 class="font-bold text-2xl">${word.word}</h2>
+                <p class="font-medium text-lg">Meaning / Pronounciation</p>
+                <div class="bangla-font font-semibold text-2xl">${word.meaning} / ${word.pronounciation}</div>
+                <div class="flex justify-between items-center">
+                    <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
+                    <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-volume"></i></button>
+                </div>
+            </div>
+        `;
+        wordContainer.append(wordDiv);
+    });
+};
+
 const displayLessons = (lessons) => {
-    const lessonContainer = document.getElementById("lesson-container");
-    lessonContainer.innerHTML = "";
+    const levelContainer = document.getElementById("level-container");
+    levelContainer.innerHTML = "";
     for (let lesson of lessons) {
-        console.log(lesson);
+        // console.log(lesson);
         const btnDiv = document.createElement("div");
         btnDiv.innerHTML = `
-        <button class="btn btn-outline btn-primary"><iclass="fa-solid fa-circle-question"></i>Lesson - ${lesson.level_no}</button>
+        <button onclick="loadlevelWords(${lesson.level_no})" class="btn btn-outline btn-primary"><i class="fa-solid fa-book-open"></i>Lesson - ${lesson.level_no}</button>
         `;
-        lessonContainer.appendChild(btnDiv);
+        levelContainer.appendChild(btnDiv);
     }
 }
 loadlessons();
