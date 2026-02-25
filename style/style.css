@@ -9,4 +9,8 @@
   font-style: normal;
 }
 
+.active{
+  background-color: blue;
+  color: white;
+}
 
