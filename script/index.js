@@ -29,6 +29,48 @@ const loadlevelWords = (id) => {
         });
 };
 
+const loadWordDetail = async (id) => {
+    const url = `https://openapi.programming-hero.com/api/word/${id}`
+
+    const res = await fetch(url);
+    const details = await res.json();
+    displayDetails(details.data);
+};
+
+
+// id: 3
+// level: 2
+// meaning: "সতর্ক"
+// partsOfSpeech: "adjective"
+// points: 2
+// pronunciation: "কশাস"
+// sentence: "Be cautious while crossing the road."
+// synonyms: (3) ['careful', 'alert', 'watchful']
+// word: "Cautious"
+
+const displayDetails = (word) => {
+    // console.log(word);
+    const detailContainer = document.getElementById("details-container");
+    detailContainer.innerHTML = `
+                    <div class="">
+                        <h2>${word.word} (<i class="fa-etch fa-solid fa-microphone"></i> :ইগার)</h2>
+                        <p>Meaning</p>
+                        <h2>${word.meaning}</h2>
+                    </div>
+                    <div class="">
+                        <h2>Example</h2>
+                        <p>${word.sentence}</p>
+
+                    </div>
+                    <div class="">
+                        <h2>সমার্থক শব্দ গুলো</h2>
+                        <span class="btn">Enthusiastic</span>
+                        <span class="btn">Exiced</span>
+                        <span class="btn">keen</span>
+                    </div>
+    `;
+    document.getElementById("word_modal").showModal();
+};
 
 
 
@@ -55,7 +97,7 @@ const displayWords = (words) => {
                 <p class="font-medium text-lg">Meaning / Pronounciation</p>
                 <div class="bangla-font font-semibold text-2xl">${word.meaning ? word.meaning : "অর্থ পাওয়া যায়নি"} / ${word.pronounciation ? word.pronounciation : "উচ্চারণ পাওয়া যায়নি"}</div>
                 <div class="flex justify-between items-center">
-                    <button onclick="my_modal_5.showModal()" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
+                    <button onclick="loadWordDetail(${word.id})" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
                     <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-volume"></i></button>
                 </div>
             </div>
