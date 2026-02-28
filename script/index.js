@@ -4,6 +4,17 @@ const createElement = (arr) => {
     return(htmlElements.join(" "));
 };
 
+const manageSpinner = (status) => {
+    if(status == true){
+        document.getElementById("spinner").classList.remove("hidden");
+        document.getElementById("word-container").classList.add("hidden");
+
+    } else{
+        document.getElementById("word-container").classList.remove("hidden");
+        document.getElementById("spinner").classList.add("hidden");
+    }
+};
+
 
 const loadlessons = () => {
     fetch("https://openapi.programming-hero.com/api/levels/all")
@@ -24,6 +35,7 @@ const removeActive = () => {
 };
 
 const loadlevelWords = (id) => {
+    manageSpinner(true);
     const url = `https://openapi.programming-hero.com/api/level/${id}`;
     fetch(url)
         .then(res => res.json())
@@ -92,7 +104,8 @@ const displayWords = (words) => {
                 <p class="text-gray-400 font-semibold text-xl">আপনি এখনো কোন Lesson Select করেন ন</p>
                 <h2 class="font-bold text-5xl ">একটি Lesson Select করুন।</h2>
             </div>
-        `
+        `;
+        manageSpinner(false);
         return;
     }
     words.forEach((word) => {
@@ -111,6 +124,7 @@ const displayWords = (words) => {
         `;
         wordContainer.append(wordDiv);
     });
+    manageSpinner(false);
 };
 
 const displayLessons = (lessons) => {
